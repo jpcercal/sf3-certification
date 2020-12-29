@@ -1,0 +1,4 @@
+mysql-data/
+var/cache/*
+var/logs/*
+vendor/

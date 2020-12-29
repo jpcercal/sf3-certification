@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+    links:
+      - mysql
+    volumes:
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./:/var/www/app
+      - ~/.gitconfig:/root/.gitconfig
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: sf3
+      MYSQL_USER: sf3
+      MYSQL_PASSWORD: sf3
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    volumes:
+      - ./mysql-data:/var/lib/mysql
